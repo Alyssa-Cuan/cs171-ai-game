@@ -91,6 +91,30 @@ function nextMeat() {
 	meat.src = assetsFolder + stateSpaceImage.meats[state.meat];
 }
 
+function prevTopping() {
+    var topping = document.getElementById("toppingImage");
+	state.topping = (state.topping - 1 + stateSpace.toppings.length) % stateSpace.toppings.length;
+	topping.src = assetsFolder + stateSpaceImage.toppings[state.topping];
+}
+
+function prevVegetable() {
+    var vegetable = document.getElementById("vegetableImage");
+	state.vegetable = (state.vegetable - 1 + stateSpace.vegetables.length) % stateSpace.vegetables.length;
+	vegetable.src = assetsFolder + stateSpaceImage.vegetables[state.vegetable];
+}
+
+function prevSauce() {
+    var sauce = document.getElementById("sauceImage");
+	state.sauce = (state.sauce - 1 + stateSpace.sauces.length) % stateSpace.sauces.length;
+	sauce.src = assetsFolder + stateSpaceImage.sauces[state.sauce];
+}
+
+function prevMeat() {
+    var meat = document.getElementById("meatImage");
+	state.meat = (state.meat - 1 + stateSpace.meats.length) % stateSpace.meats.length;
+	meat.src = assetsFolder + stateSpaceImage.meats[state.meat];
+}
+
 function serve() {
     var customer = document.getElementById("customer");
 	if (goalTest()){

@@ -5,23 +5,35 @@
     <title>Perfect Combination: Burger Edition</title>
 <body>
     <div id="container">
-    <div id="background">
-		<div id="topBun"> Top Bun</div>    
-		<div id="topping"> <img src="" id="toppingImage"/></div>
-		<div id="vegetable"> <img src="" id="vegetableImage"/></div>
-		<div id="sauce"> <img src="" id="sauceImage"/></div>    
-		<div id="meat"> <img src="" id="meatImage"/></div>
-		<div id="bottomBun"> Bottom Bun</div>
-    </div>
-        
-        <input type="button" value="Next Topping" id="nextTopping" onclick="nextTopping()">
-		<input type="button" value="Next Vegetable" id="nextVegetable" onclick="nextVegetable()">
-        <input type="button" value="Next Sauce" id="nextSauce" onclick="nextSauce()">
-        <input type="button" value="Next Meat" id="nextMeat" onclick="nextMeat()">
-		<input type="button" value="Serve Burger" id="serve" onclick="serve()">
-		<div id="customer"></div>
-		<div id="score"></div>
-    
+        <div id="background">
+            <div id="burger">
+                <div id="topBun"> Top Bun</div>    
+                <div id="topping"> 
+                    <input type="button" value="<" id="prevTopping" onclick="prevTopping()">
+                    &nbsp <img src="" id="toppingImage"/> &nbsp
+                    <input type="button" value=">" id="nextTopping" onclick="nextTopping()">
+                </div>
+                <div id="vegetable"> 
+                    <input type="button" value="<" id="prevVegetable" onclick="prevVegetable()">
+                    &nbsp <img src="" id="vegetableImage"/> &nbsp
+                    <input type="button" value=">" id="nextVegetable" onclick="nextVegetable()">
+                </div>
+                <div id="sauce"> 
+                    <input type="button" value="<" id="prevSauce" onclick="prevSauce()">
+                    &nbsp <img src="" id="sauceImage"/> &nbsp
+                    <input type="button" value=">" id="nextSauce" onclick="nextSauce()">
+                </div>    
+                <div id="meat"> 
+                    <input type="button" value="<" id="prevMeat" onclick="prevMeat()">
+                    &nbsp <img src="" id="meatImage"/> &nbsp
+                    <input type="button" value=">" id="nextMeat" onclick="nextMeat()">
+                </div>
+                <div id="bottomBun"> Bottom Bun</div>
+                <input type="button" value="Serve Burger" id="serve" onclick="serve()">
+            </div>
+        </div>
+        <div id="customer"></div>
+        <div id="score"></div>
     </div>
     
     <script src="index.js"></script>

@@ -1,4 +1,86 @@
 img {
-    width: 100px;
-    height: 80px;
+    width: 90px;
+    height: 72px;
+}
+
+#background {
+    width: 40%;
+}
+
+#burger {
+    float: left;
+}
+
+#customer {
+    float: left;
+    position: relative;
+    left: 200px;
+    top: 230px;
+}
+
+#score {
+    float: left;
+    position: relative;
+    left: 280px;
+    top: 230px;
+}
+
+#topping {
+    position:relative;
+    left:120px;
+}
+
+#vegetable {
+    position:relative;
+    left:120px;
+}
+
+#sauce {
+    position:relative;
+    left:120px;
+}
+
+#meat {
+    position:relative;
+    left:120px;
+}
+
+#nextTopping {
+    position:relative;
+    bottom:40px;
+}
+
+#nextVegetable {
+    position:relative;
+    bottom:40px;
+}
+
+#nextSauce {
+    position:relative;
+    bottom:40px;
+}
+
+#nextMeat {
+    position:relative;
+    bottom:40px;
+}
+
+#prevTopping {
+    position:relative;
+    bottom:40px;
+}
+
+#prevVegetable {
+    position:relative;
+    bottom:40px;
+}
+
+#prevSauce {
+    position:relative;
+    bottom:40px;
+}
+
+#prevMeat {
+    position:relative;
+    bottom:40px;
 }
