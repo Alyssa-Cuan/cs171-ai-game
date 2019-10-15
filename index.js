@@ -64,7 +64,7 @@ function randomRange(start, end){
 }
 
 function generateGoalStateString(){
-	return "I want a burger with " + stateSpace.meats[goalState.meat] + ", " + stateSpace.sauces[goalState.sauce] + ", " + stateSpace.toppings[goalState.topping] + ", and "+ stateSpace.vegetables[goalState.vegetable];
+	return "I want a burger with " + stateSpace.toppings[goalState.topping] + ", " + stateSpace.vegetables[goalState.vegetable] + ", " + stateSpace.sauces[goalState.sauce] + ", and "+ stateSpace.meats[goalState.meat];
 }
 
 function nextTopping() {
