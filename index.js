@@ -1,19 +1,31 @@
 window.onload=init;
 
-var availableStates = {
-	toppings: ["Lettuce","Tomato","Cheese"],
-	sauces: ["Ketchup","Mayonnaise","BBQ Sauce"],
-	meats: ["Ground Beef","Sirlion Steak","Vegan Meat"]
+var assetsFolder = "assets/";
+
+var stateSpaceImage = {
+	toppings: ["bacon.png","cheese.png","egg.png","jalapeno.png"],
+	vegetables: ["lettuce.png","mushrooms.png","pickles.png","spinach.png","tomato.png"],
+	sauces: ["ketchup.png","mayonnaise.png","mustard.png"],
+	meats: ["beef steak.png","chicken steak.png","fish steak.png","chorizo.png"]
+}
+
+var stateSpace = {
+	toppings: ["Bacon","Cheese","Egg","Jalapeno"],
+	vegetables: ["Lettuce","Mushrooms","Pickles","Spinach","Tomato"],
+	sauces: ["Ketchup","Mayonnaise","Mustard"],
+	meats: ["Beef Steak","Chicken Steak","Fish Steak","Chorizo"]
 };
 
 var state = {
     topping: -1,
+	vegetable: -1,
     sauce: -1,
     meat: -1
 };
 
 var goalState = {
 	topping: -1,
+	vegetable: -1,
     sauce: -1,
     meat: -1
 };
@@ -21,18 +33,27 @@ var goalState = {
 var currentScore = 0;
 
 function init() {
-    console.log("window has loaded");
+	reset();
 	nextTopping();
+	nextVegetable();
 	nextSauce();
 	nextMeat();
 	generateRandomGoalState();
 	displayScore();
 }
 
+function reset(){
+	state.topping = -1;
+	state.vegetable = -1;
+	state.sauce = -1;
+	state.meat = -1;
+}
+
 function generateRandomGoalState(){
-	goalState.topping = randomRange(0, availableStates.toppings.length);
-	goalState.sauce = randomRange(0, availableStates.sauces.length);
-	goalState.meat = randomRange(0, availableStates.meats.length);
+	goalState.topping = randomRange(0, stateSpace.toppings.length);
+	goalState.vegetable = randomRange(0, stateSpace.vegetables.length);
+	goalState.sauce = randomRange(0, stateSpace.sauces.length);
+	goalState.meat = randomRange(0, stateSpace.meats.length);
 	
 	var customer = document.getElementById("customer");
 	customer.innerHTML = generateGoalStateString();
@@ -43,25 +64,31 @@ function randomRange(start, end){
 }
 
 function generateGoalStateString(){
-	return "I want a burger with " + availableStates.meats[goalState.meat] + " and " + availableStates.sauces[goalState.sauce] + " with " + availableStates.toppings[goalState.topping];
+	return "I want a burger with " + stateSpace.meats[goalState.meat] + ", " + stateSpace.sauces[goalState.sauce] + ", " + stateSpace.toppings[goalState.topping] + ", and "+ stateSpace.vegetables[goalState.vegetable];
 }
 
 function nextTopping() {
-    var topping = document.getElementById("topping");
-	state.topping = (state.topping + 1) % availableStates.toppings.length;
-	topping.innerHTML = availableStates.toppings[state.topping];
+    var topping = document.getElementById("toppingImage");
+	state.topping = (state.topping + 1) % stateSpace.toppings.length;
+	topping.src = assetsFolder + stateSpaceImage.toppings[state.topping];
+}
+
+function nextVegetable() {
+    var vegetable = document.getElementById("vegetableImage");
+	state.vegetable = (state.vegetable + 1) % stateSpace.vegetables.length;
+	vegetable.src = assetsFolder + stateSpaceImage.vegetables[state.vegetable];
 }
 
 function nextSauce() {
-    var sauce = document.getElementById("sauce");
-	state.sauce = (state.sauce + 1) % availableStates.sauces.length;
-	sauce.innerHTML = availableStates.sauces[state.sauce];
+    var sauce = document.getElementById("sauceImage");
+	state.sauce = (state.sauce + 1) % stateSpace.sauces.length;
+	sauce.src = assetsFolder + stateSpaceImage.sauces[state.sauce];
 }
 
 function nextMeat() {
-    var meat = document.getElementById("meat");
-	state.meat = (state.meat + 1) % availableStates.meats.length;
-	meat.innerHTML = availableStates.meats[state.meat];
+    var meat = document.getElementById("meatImage");
+	state.meat = (state.meat + 1) % stateSpace.meats.length;
+	meat.src = assetsFolder + stateSpaceImage.meats[state.meat];
 }
 
 function serve() {
@@ -70,7 +97,7 @@ function serve() {
 		customer.innerHTML = "Thanks! Great Job!";
 		currentScore += 10;
 		setTimeout(function() {
-			generateRandomGoalState();
+			init();
 		}, 2000);
 		
 	} else {
@@ -82,7 +109,7 @@ function serve() {
 }
 
 function goalTest(){
-	return (state.topping === goalState.topping && state.sauce === goalState.sauce && state.meat === goalState.meat);
+	return (state.topping === goalState.topping && state.vegetable === goalState.vegetable && state.sauce === goalState.sauce && state.meat === goalState.meat);
 }
 
 function displayScore(){

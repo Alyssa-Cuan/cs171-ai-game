@@ -1,20 +1,21 @@
 <html>
    <head> 
-       
-       
+    <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <title>Perfect Combination: Burger Edition</title>
 <body>
     <div id="container">
     <div id="background">
 		<div id="topBun"> Top Bun</div>    
-		<div id="topping"></div>
-		<div id="sauce"></div>    
-		<div id="meat"></div>
+		<div id="topping"> <img src="" id="toppingImage"/></div>
+		<div id="vegetable"> <img src="" id="vegetableImage"/></div>
+		<div id="sauce"> <img src="" id="sauceImage"/></div>    
+		<div id="meat"> <img src="" id="meatImage"/></div>
 		<div id="bottomBun"> Bottom Bun</div>
     </div>
         
         <input type="button" value="Next Topping" id="nextTopping" onclick="nextTopping()">
+		<input type="button" value="Next Vegetable" id="nextVegetable" onclick="nextVegetable()">
         <input type="button" value="Next Sauce" id="nextSauce" onclick="nextSauce()">
         <input type="button" value="Next Meat" id="nextMeat" onclick="nextMeat()">
 		<input type="button" value="Serve Burger" id="serve" onclick="serve()">
