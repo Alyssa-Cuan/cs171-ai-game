@@ -55,7 +55,7 @@ function generateRandomGoalState(){
 	goalState.sauce = randomRange(0, stateSpace.sauces.length);
 	goalState.meat = randomRange(0, stateSpace.meats.length);
 	
-	var customer = document.getElementById("customer");
+	var customer = document.getElementById("customerText");
 	customer.innerHTML = generateGoalStateString();
 }
 
@@ -116,7 +116,7 @@ function prevMeat() {
 }
 
 function serve() {
-    var customer = document.getElementById("customer");
+    var customer = document.getElementById("customerText");
 	if (goalTest()){
 		customer.innerHTML = "Thanks! Great Job!";
 		currentScore += 10;

@@ -7,7 +7,7 @@
     <div id="container">
         <div id="background">
             <div id="burger">
-                <div id="topBun"> Top Bun</div>    
+                <div id="topBun"> <img src="assets/top bun.png" id="topBunImage"/></div>    
                 <div id="topping"> 
                     <input type="button" value="<" id="prevTopping" onclick="prevTopping()">
                     &nbsp <img src="" id="toppingImage"/> &nbsp
@@ -28,11 +28,14 @@
                     &nbsp <img src="" id="meatImage"/> &nbsp
                     <input type="button" value=">" id="nextMeat" onclick="nextMeat()">
                 </div>
-                <div id="bottomBun"> Bottom Bun</div>
+                <div id="bottomBun"> <img src="assets/bottom bun.png" id="bottomBunImage"/></div>
                 <input type="button" value="Serve Burger" id="serve" onclick="serve()">
             </div>
         </div>
-        <div id="customer"></div>
+        <div id="customer"> 
+            <img src="assets/customer_normal.png" id="customerImage"/>
+            <span id="customerText"></span>
+        </div>
         <div id="score"></div>
     </div>
     
