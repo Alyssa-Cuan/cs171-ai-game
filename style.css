@@ -1,100 +1,122 @@
-img {
-    width: 90px;
-    height: 72px;
+#topBunImage {
+    width: 80px;
+    height: 64px;
+    position:relative;
+    left:35px;
+}
+
+#bottomBunImage {
+    width: 80px;
+    height: 64px;
+    position:relative;
+    left:35px;
+}
+
+#toppingImage {
+    width: 80px;
+    height: 64px;
+}
+
+#vegetableImage {
+    width: 80px;
+    height: 64px;
+}
+
+#sauceImage {
+    width: 80px;
+    height: 64px;
+}
+
+#meatImage {
+    width: 80px;
+    height: 64px;
 }
 
 #customerImage {
     width: 200px;
     height: 300px;
-}
-
-#background {
-    width: 40%;
-}
-
-#burger {
-    float: left;
-}
-
-#customer {
-    float: left;
     position: relative;
-    left: 200px;
+    left: 50px;
+    bottom: 40px;
 }
 
-#score {
-    float: left;
+#counterImage {
+    width: 350px;
+    height: 200px;
     position: relative;
-    left: 280px;
-    top: 230px;
-}
-
-#topBun {
-    position:relative;
-    left:155px;
-}
-
-#bottomBun {
-    position:relative;
-    left:155px;
-}
-
-#topping {
-    position:relative;
-    left:120px;
-}
-
-#vegetable {
-    position:relative;
-    left:120px;
-}
-
-#sauce {
-    position:relative;
-    left:120px;
-}
-
-#meat {
-    position:relative;
-    left:120px;
+    right: 150px;
 }
 
 #nextTopping {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #nextVegetable {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #nextSauce {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #nextMeat {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #prevTopping {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #prevVegetable {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #prevSauce {
     position:relative;
-    bottom:40px;
+    bottom:30px;
 }
 
 #prevMeat {
     position:relative;
-    bottom:40px;
+    bottom:30px;
+}
+
+#serve {
+    position: absolute;
+    left: 450px;
+    bottom: 150px;
+}
+
+#customerText {
+    float: left;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
+#score {
+    float: left;
+    position: absolute;
+}
+
+#background {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#customer {
+    float: left;
+    margin-top: 100px;
+}
+
+#burger {
+    float: left;
 }

@@ -6,6 +6,15 @@
 <body>
     <div id="container">
         <div id="background">
+
+            <div id="customer"> 
+                <div id="customerText"></div>
+                <img src="assets/customer_normal.png" id="customerImage"/>
+                <img src="assets/counter.png" id="counterImage"/>
+                <input type="button" value="Serve Burger" id="serve" onclick="serve()">
+                <div id="score"></div>
+            </div>
+
             <div id="burger">
                 <div id="topBun"> <img src="assets/top bun.png" id="topBunImage"/></div>    
                 <div id="topping"> 
@@ -29,14 +38,9 @@
                     <input type="button" value=">" id="nextMeat" onclick="nextMeat()">
                 </div>
                 <div id="bottomBun"> <img src="assets/bottom bun.png" id="bottomBunImage"/></div>
-                <input type="button" value="Serve Burger" id="serve" onclick="serve()">
             </div>
+
         </div>
-        <div id="customer"> 
-            <img src="assets/customer_normal.png" id="customerImage"/>
-            <span id="customerText"></span>
-        </div>
-        <div id="score"></div>
     </div>
     
     <script src="index.js"></script>
