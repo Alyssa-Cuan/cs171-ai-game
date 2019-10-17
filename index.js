@@ -47,6 +47,9 @@ function reset(){
 	state.vegetable = -1;
 	state.sauce = -1;
 	state.meat = -1;
+
+	var customerImage = document.getElementById("customerImage");
+	customerImage.src = assetsFolder + "customer_normal.png";
 }
 
 function generateRandomGoalState(){
@@ -64,7 +67,6 @@ function randomRange(start, end){
 }
 
 function generateGoalStateString(){
-	//return "HI";
 	return "I want a burger with " + stateSpace.toppings[goalState.topping] + ", " + stateSpace.vegetables[goalState.vegetable] + ", " + stateSpace.sauces[goalState.sauce] + ", and "+ stateSpace.meats[goalState.meat];
 }
 
@@ -121,13 +123,22 @@ function serve() {
 	if (goalTest()){
 		customer.innerHTML = "Thanks! Great Job!";
 		currentScore += 10;
+
+		var customerImage = document.getElementById("customerImage");
+		customerImage.src = assetsFolder + "customer_happy.png";
 		setTimeout(function() {
 			init();
 		}, 2000);
 		
 	} else {
 		customer.innerHTML = "This isn't what I want... Here is my order!!!<br>";
-		customer.innerHTML += generateGoalStateString();
+
+		var customerImage = document.getElementById("customerImage");
+		customerImage.src = assetsFolder + "customer_angry.png";
+		setTimeout(function() {
+			customer.innerHTML = generateGoalStateString();
+			customerImage.src = assetsFolder + "customer_normal.png";
+		}, 2000);
 		currentScore -= 10;
 	}
 	displayScore();
