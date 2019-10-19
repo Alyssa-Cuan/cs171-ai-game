@@ -18,14 +18,12 @@ var stateSpace = {
 
 var state = {
     topping: -1,
-	vegetable: -1,
     sauce: -1,
     meat: -1
 };
 
 var goalState = {
 	topping: -1,
-	vegetable: -1,
     sauce: -1,
     meat: -1
 };
@@ -35,7 +33,6 @@ var currentScore = 0;
 function init() {
 	reset();
 	nextTopping();
-	nextVegetable();
 	nextSauce();
 	nextMeat();
 	generateRandomGoalState();
@@ -44,7 +41,6 @@ function init() {
 
 function reset(){
 	state.topping = -1;
-	state.vegetable = -1;
 	state.sauce = -1;
 	state.meat = -1;
 
@@ -54,7 +50,6 @@ function reset(){
 
 function generateRandomGoalState(){
 	goalState.topping = randomRange(0, stateSpace.toppings.length);
-	goalState.vegetable = randomRange(0, stateSpace.vegetables.length);
 	goalState.sauce = randomRange(0, stateSpace.sauces.length);
 	goalState.meat = randomRange(0, stateSpace.meats.length);
 	
@@ -67,19 +62,24 @@ function randomRange(start, end){
 }
 
 function generateGoalStateString(){
-	return "I want a burger with " + stateSpace.toppings[goalState.topping] + ", " + stateSpace.vegetables[goalState.vegetable] + ", " + stateSpace.sauces[goalState.sauce] + ", and "+ stateSpace.meats[goalState.meat];
+	return "I want a burger with " + stateSpace.toppings[goalState.topping] + ", " + stateSpace.sauces[goalState.sauce] + ", and "+ stateSpace.meats[goalState.meat];
+}
+
+function showState(node){
+	var topping = document.getElementById("toppingImage");
+	topping.src = assetsFolder + stateSpaceImage.toppings[node.topping];
+
+	var sauce = document.getElementById("sauceImage");
+	sauce.src = assetsFolder + stateSpaceImage.sauces[node.sauce];
+
+	var meat = document.getElementById("meatImage");
+	meat.src = assetsFolder + stateSpaceImage.meats[node.meat];
 }
 
 function nextTopping() {
     var topping = document.getElementById("toppingImage");
 	state.topping = (state.topping + 1) % stateSpace.toppings.length;
 	topping.src = assetsFolder + stateSpaceImage.toppings[state.topping];
-}
-
-function nextVegetable() {
-    var vegetable = document.getElementById("vegetableImage");
-	state.vegetable = (state.vegetable + 1) % stateSpace.vegetables.length;
-	vegetable.src = assetsFolder + stateSpaceImage.vegetables[state.vegetable];
 }
 
 function nextSauce() {
@@ -98,12 +98,6 @@ function prevTopping() {
     var topping = document.getElementById("toppingImage");
 	state.topping = (state.topping - 1 + stateSpace.toppings.length) % stateSpace.toppings.length;
 	topping.src = assetsFolder + stateSpaceImage.toppings[state.topping];
-}
-
-function prevVegetable() {
-    var vegetable = document.getElementById("vegetableImage");
-	state.vegetable = (state.vegetable - 1 + stateSpace.vegetables.length) % stateSpace.vegetables.length;
-	vegetable.src = assetsFolder + stateSpaceImage.vegetables[state.vegetable];
 }
 
 function prevSauce() {
@@ -145,10 +139,95 @@ function serve() {
 }
 
 function goalTest(){
-	return (state.topping === goalState.topping && state.vegetable === goalState.vegetable && state.sauce === goalState.sauce && state.meat === goalState.meat);
+	return (state.topping === goalState.topping && state.sauce === goalState.sauce && state.meat === goalState.meat);
 }
 
 function displayScore(){
 	var score = document.getElementById("score");
 	score.innerHTML = "Score: " + currentScore;
 }
+
+function getNeighbors(node){
+	var neighbors = [];
+	if (node.topping < stateSpace.toppings.length - 1) {
+		var neighbor1 = JSON.parse(JSON.stringify(node));
+		neighbor1.topping++;
+		neighbors.push(neighbor1);
+	}
+	if (node.sauce < stateSpace.sauces.length - 1) {
+		var neighbor3 = JSON.parse(JSON.stringify(node));
+		neighbor3.sauce++;
+		neighbors.push(neighbor3);
+	}
+	if (node.meat < stateSpace.meats.length - 1) {
+		var neighbor4 = JSON.parse(JSON.stringify(node));
+		neighbor4.meat++;
+		neighbors.push(neighbor4);
+	}
+
+	return neighbors;
+}
+
+async function dfs(){
+	var fringe = new Stack();
+	fringe.push(state);
+	var seen = new Set();
+
+	while (!fringe.isEmpty()){
+		var current = fringe.pop();
+		
+		if (seen.has(JSON.stringify(current))){
+			continue;
+		}
+		showState(current);
+		console.log("Showing current state: " + JSON.stringify(current));
+		await sleep(1000);
+		
+
+		if (compare(current, goalState)){
+			state = current;
+			console.log("Goal found " + JSON.stringify(current));
+			serve();
+			return "found";
+		}
+
+		var neighbors = getNeighbors(current);
+		for (var i = 0; i < neighbors.length; i++) {
+			fringe.push(neighbors[i]);
+		}
+		seen.add(JSON.stringify(current));
+	}
+}
+
+async function sleep(msec) {
+    return new Promise(resolve => setTimeout(resolve, msec));
+}
+
+function compare(s, g){
+	return (s.topping === g.topping && s.sauce === g.sauce && s.meat === g.meat);
+}
+
+class Stack { 
+    constructor() { 
+        this.items = []; 
+    }  
+    push(element) { 
+        this.items.push(element); 
+    } 
+    pop() { 
+        if (this.items.length == 0) return "Underflow"; 
+        return this.items.pop(); 
+    } 
+    peek() { 
+        return this.items[this.items.length - 1]; 
+    } 
+    isEmpty() { 
+        return this.items.length == 0; 
+    } 
+    printStack() { 
+        var str = ""; 
+        for (var i = 0; i < this.items.length; i++) 
+            str += this.items[i] + " "; 
+        return str; 
+    } 
+} 

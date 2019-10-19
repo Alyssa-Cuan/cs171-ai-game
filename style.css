@@ -100,7 +100,6 @@
 #serve {
     z-index: 3;
     position: relative;
-    left: 40px;
     bottom: 150px;
 }
 
@@ -119,6 +118,7 @@
     position: relative;
     right: 40px;
     bottom: 40px;
+    width: 80px;
 }
 
 #background {
