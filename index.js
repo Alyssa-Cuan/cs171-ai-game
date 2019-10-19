@@ -199,6 +199,37 @@ async function dfs(){
 	}
 }
 
+async function bfs(){
+	var fringe = new Queue();
+	fringe.enqueue(state);
+	var seen = new Set();
+
+	while (!fringe.isEmpty()){
+		var current = fringe.dequeue();
+		
+		if (seen.has(JSON.stringify(current))){
+			continue;
+		}
+		showState(current);
+		console.log("Showing current state: " + JSON.stringify(current));
+		await sleep(1000);
+		
+
+		if (compare(current, goalState)){
+			state = current;
+			console.log("Goal found " + JSON.stringify(current));
+			serve();
+			return "found";
+		}
+
+		var neighbors = getNeighbors(current);
+		for (var i = 0; i < neighbors.length; i++) {
+			fringe.enqueue(neighbors[i]);
+		}
+		seen.add(JSON.stringify(current));
+	}
+}
+
 async function sleep(msec) {
     return new Promise(resolve => setTimeout(resolve, msec));
 }
@@ -230,4 +261,30 @@ class Stack {
             str += this.items[i] + " "; 
         return str; 
     } 
+} 
+
+class Queue { 
+    constructor() { 
+        this.items = []; 
+    }         
+    enqueue(element) {     
+    	this.items.push(element); 
+	} 
+    dequeue() { 
+		if(this.isEmpty()) return "Underflow"; 
+		return this.items.shift(); 
+	} 
+    front() { 
+		if(this.isEmpty()) return "No elements in Queue"; 
+		return this.items[0]; 
+	} 
+    isEmpty() { 
+		return this.items.length == 0; 
+	} 
+    printQueue() { 
+		var str = ""; 
+		for(var i = 0; i < this.items.length; i++) 
+			str += this.items[i] +" "; 
+		return str; 
+	} 
 } 
