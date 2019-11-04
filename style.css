@@ -121,6 +121,13 @@
     width: 80px;
 }
 
+#traversals {
+    float: left;
+    position: relative;
+    right: 120px;
+    bottom: 20px;
+}
+
 #background {
     display: flex;
     justify-content: center;

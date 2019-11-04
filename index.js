@@ -30,6 +30,8 @@ var goalState = {
 
 var currentScore = 0;
 
+var traversals = 0;
+
 function init() {
 	reset();
 	nextTopping();
@@ -46,9 +48,15 @@ function reset(){
 
 	var customerImage = document.getElementById("customerImage");
 	customerImage.src = assetsFolder + "customer_normal.png";
+
+	traversals = 0;
 }
 
 function generateRandomGoalState(){
+	// goalState.topping = 3;
+	// goalState.sauce = 2;
+	// goalState.meat = 3;
+
 	goalState.topping = randomRange(0, stateSpace.toppings.length);
 	goalState.sauce = randomRange(0, stateSpace.sauces.length);
 	goalState.meat = randomRange(0, stateSpace.meats.length);
@@ -179,9 +187,12 @@ async function dfs(){
 		if (seen.has(JSON.stringify(current))){
 			continue;
 		}
+		traversals += 1;
+		var trav = document.getElementById("traversals");
+		trav.innerHTML = "Traversals: " + traversals;
 		showState(current);
 		console.log("Showing current state: " + JSON.stringify(current));
-		await sleep(1000);
+		await sleep(500);
 		
 
 		if (compare(current, goalState)){
@@ -206,13 +217,15 @@ async function bfs(){
 
 	while (!fringe.isEmpty()){
 		var current = fringe.dequeue();
-		
 		if (seen.has(JSON.stringify(current))){
 			continue;
 		}
+		traversals += 1;
+		var trav = document.getElementById("traversals");
+		trav.innerHTML = "Traversals: " + traversals;
 		showState(current);
 		console.log("Showing current state: " + JSON.stringify(current));
-		await sleep(1000);
+		await sleep(500);
 		
 
 		if (compare(current, goalState)){
