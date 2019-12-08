@@ -53,13 +53,13 @@ function reset(){
 }
 
 function generateRandomGoalState(){
-	goalState.topping = 3;
-	goalState.sauce = 2;
-	goalState.meat = 2;
+	// goalState.topping = 3;
+	// goalState.sauce = 2;
+	// goalState.meat = 2;
 
-	// goalState.topping = randomRange(0, stateSpace.toppings.length);
-	// goalState.sauce = randomRange(0, stateSpace.sauces.length);
-	// goalState.meat = randomRange(0, stateSpace.meats.length);
+	goalState.topping = randomRange(0, stateSpace.toppings.length);
+	goalState.sauce = randomRange(0, stateSpace.sauces.length);
+	goalState.meat = randomRange(0, stateSpace.meats.length);
 	
 	var customer = document.getElementById("customerText");
 	customer.innerHTML = generateGoalStateString();
