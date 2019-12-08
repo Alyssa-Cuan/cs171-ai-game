@@ -53,13 +53,13 @@ function reset(){
 }
 
 function generateRandomGoalState(){
-	// goalState.topping = 3;
-	// goalState.sauce = 2;
-	// goalState.meat = 3;
+	goalState.topping = 3;
+	goalState.sauce = 2;
+	goalState.meat = 2;
 
-	goalState.topping = randomRange(0, stateSpace.toppings.length);
-	goalState.sauce = randomRange(0, stateSpace.sauces.length);
-	goalState.meat = randomRange(0, stateSpace.meats.length);
+	// goalState.topping = randomRange(0, stateSpace.toppings.length);
+	// goalState.sauce = randomRange(0, stateSpace.sauces.length);
+	// goalState.meat = randomRange(0, stateSpace.meats.length);
 	
 	var customer = document.getElementById("customerText");
 	customer.innerHTML = generateGoalStateString();
@@ -176,6 +176,27 @@ function getNeighbors(node){
 	return neighbors;
 }
 
+function getHeuristicNeighbors(s, lockTopping, lockSauce, lockMeat){
+	var neighbors = [];
+	if (s.topping < stateSpace.toppings.length - 1 && !lockTopping) {
+		var neighbor1 = JSON.parse(JSON.stringify(s));
+		neighbor1.topping++;
+		neighbors.push(neighbor1);
+	}
+	if (s.sauce < stateSpace.sauces.length - 1 && !lockSauce) {
+		var neighbor3 = JSON.parse(JSON.stringify(s));
+		neighbor3.sauce++;
+		neighbors.push(neighbor3);
+	}
+	if (s.meat < stateSpace.meats.length - 1 && !lockMeat) {
+		var neighbor4 = JSON.parse(JSON.stringify(s));
+		neighbor4.meat++;
+		neighbors.push(neighbor4);
+	}
+
+	return neighbors;
+}
+
 async function dfs(){
 	var fringe = new Stack();
 	fringe.push(state);
@@ -243,12 +264,74 @@ async function bfs(){
 	}
 }
 
+async function heuristic(){
+	var fringe = new Stack();
+	fringe.push(state);
+	var seen = new Set();
+
+	while (!fringe.isEmpty()){
+		var current = fringe.pop();
+		if (seen.has(JSON.stringify(current))){
+			continue;
+		}
+		traversals += 1;
+		var trav = document.getElementById("traversals");
+		trav.innerHTML = "Traversals: " + traversals;
+		showState(current);
+		console.log("Showing current state: " + JSON.stringify(current));
+		await sleep(500);
+		
+
+		if (compare(current, goalState)){
+			state = current;
+			console.log("Goal found " + JSON.stringify(current));
+			serve();
+			return "found";
+		}
+
+		var count = 0;
+		var lockTopping = false;
+		var lockSauce = false;
+		var lockMeat = false;
+
+		if (current.topping == goalState.topping) {
+			lockTopping = true;
+			count++;
+		}
+		if (current.sauce == goalState.sauce) {
+			lockSauce = true;
+			count++;
+		}
+		if (current.meat == goalState.meat) {
+			lockMeat = true;
+			count++;
+		}
+
+		if(count > 0){
+			fringe.deleteAll();
+		}
+		
+		var neighbors = getHeuristicNeighbors(current, lockTopping, lockSauce, lockMeat);
+		for (var i = 0; i < neighbors.length; i++) {
+			fringe.push(neighbors[i]);
+		}
+		seen.add(JSON.stringify(current));
+	}
+}
+
 async function sleep(msec) {
     return new Promise(resolve => setTimeout(resolve, msec));
 }
 
 function compare(s, g){
 	return (s.topping === g.topping && s.sauce === g.sauce && s.meat === g.meat);
+}
+
+function correctCount(s, g){
+	var count = 0;
+
+
+	return count;
 }
 
 class Stack { 
@@ -261,7 +344,10 @@ class Stack {
     pop() { 
         if (this.items.length == 0) return "Underflow"; 
         return this.items.pop(); 
-    } 
+	} 
+	deleteAll() {
+		this.items = [];
+	}
     peek() { 
         return this.items[this.items.length - 1]; 
     } 
@@ -287,6 +373,9 @@ class Queue {
 		if(this.isEmpty()) return "Underflow"; 
 		return this.items.shift(); 
 	} 
+	deleteAll() {
+		this.items = [];
+	}
     front() { 
 		if(this.isEmpty()) return "No elements in Queue"; 
 		return this.items[0]; 
